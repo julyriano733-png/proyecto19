@@ -1,0 +1,290 @@
+/* ==================== CSS: LA APARIENCIA ==================== */
+
+/* Variables de color: las definimos una vez y las usamos con var(--nombre).
+   Si quieres cambiar el tono de rosa, solo lo cambias aquí. */
+:root {
+  --rosa-fondo: #fff0f6;
+  --rosa-claro: #ffe0ee;
+  --rosa-borde: #f8b4d0;
+  --rosa-medio: #ff8fb8;
+  --rosa-fuerte: #e84a8a;
+  --texto: #5a2a41;
+}
+
+/* El * significa "todos los elementos".
+   border-box hace que el padding y el borde cuenten dentro del ancho,
+   así las cajas no se salen de su tamaño. */
+* {
+  box-sizing: border-box;
+}
+
+/* Estilo general de toda la página */
+body {
+  margin: 0;                          /* quita el margen que trae el navegador */
+  font-family: Arial, sans-serif;     /* tipo de letra */
+  background-color: var(--rosa-fondo);
+  color: var(--texto);
+}
+
+/* Franja rosa de arriba */
+header {
+  background-color: var(--rosa-medio);
+  color: white;
+  padding: 16px 24px;                 /* espacio interno: 16px arriba/abajo, 24px a los lados */
+}
+
+header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Avisito que solo se ve en modo demo */
+.aviso {
+  display: inline-block;
+  margin: 8px 0 0 0;
+  padding: 4px 12px;
+  background-color: white;
+  color: var(--rosa-fuerte);
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+/* El tablero tiene los carriles y el botón + en una fila */
+#tablero {
+  display: flex;                      /* pone los hijos uno al lado del otro */
+  align-items: flex-start;            /* todos alineados arriba */
+  gap: 16px;                          /* espacio entre hijos */
+  padding: 16px;
+  overflow-x: auto;                   /* si no caben, aparece scroll horizontal */
+}
+
+/* Aquí dentro se van agregando los carriles con JavaScript */
+#carriles {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* Un carril (una columna de un subreddit) */
+.carril {
+  width: 300px;
+  background-color: white;
+  border: 2px solid var(--rosa-borde);
+  border-radius: 12px;                /* esquinas redondeadas */
+}
+
+/* Parte de arriba del carril: nombre del subreddit y botón ⋮ */
+.carril-encabezado {
+  position: relative;                 /* para que el menú se ubique respecto a este cuadro */
+  display: flex;
+  justify-content: space-between;     /* título a la izquierda, ⋮ a la derecha */
+  align-items: center;
+  padding: 10px 14px;
+  background-color: var(--rosa-claro);
+  border-bottom: 2px solid var(--rosa-borde);
+  border-radius: 10px 10px 0 0;       /* redondea solo las esquinas de arriba */
+}
+
+.carril-encabezado h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Botón de los tres puntitos */
+.btn-menu {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--rosa-fuerte);
+  cursor: pointer;                    /* manito al pasar el mouse */
+}
+
+/* Menú desplegable con Refresh y Delete */
+.menu {
+  position: absolute;                 /* flota encima del contenido */
+  top: 44px;
+  right: 8px;
+  z-index: 5;                         /* queda por encima de lo demás */
+  background-color: white;
+  border: 2px solid var(--rosa-borde);
+  border-radius: 8px;
+}
+
+.menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 18px;
+  background: none;
+  border: none;
+  color: var(--texto);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.menu button:hover {
+  background-color: var(--rosa-claro); /* cambia de color al pasar el mouse */
+}
+
+/* Zona donde están los posts: si son muchos, aparece scroll vertical */
+.zona-posts {
+  max-height: 70vh;                   /* 70% del alto de la pantalla como máximo */
+  overflow-y: auto;
+}
+
+/* Una fila de post: votos a la izquierda, texto a la derecha */
+.post {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rosa-borde);
+}
+
+.voto {
+  min-width: 60px;
+  color: var(--rosa-fuerte);
+  font-weight: bold;
+  white-space: nowrap;                /* no partir "▲ 431" en dos líneas */
+}
+
+.textos a {
+  color: var(--texto);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.textos a:hover {
+  color: var(--rosa-fuerte);
+  text-decoration: underline;
+}
+
+.autor {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #a8738d;
+}
+
+/* Mensajes dentro del carril: "Cargando..." o errores */
+.mensaje {
+  margin: 0;
+  padding: 16px;
+  font-size: 14px;
+}
+
+.mensaje.error {
+  color: #c2185b;
+}
+
+/* Contenedor del botón + */
+#zona-agregar {
+  flex-shrink: 0;                     /* no dejar que se encoja */
+}
+
+/* Botón redondo + */
+#btn-mas {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;                 /* 50% = círculo perfecto */
+  border: 2px solid var(--rosa-fuerte);
+  background-color: white;
+  color: var(--rosa-fuerte);
+  font-size: 26px;
+  cursor: pointer;
+}
+
+#btn-mas:hover {
+  background-color: var(--rosa-fuerte);
+  color: white;
+}
+
+/* El popup: una capa oscura que cubre toda la pantalla y centra el formulario */
+#modal {
+  position: fixed;                    /* pegado a la pantalla aunque hagas scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;                /* centra vertical */
+  justify-content: center;            /* centra horizontal */
+  padding: 16px;
+  background-color: rgba(90, 42, 65, 0.5); /* color con transparencia */
+}
+
+#formulario {
+  width: 100%;
+  max-width: 340px;
+  padding: 20px;
+  background-color: white;
+  border: 2px solid var(--rosa-borde);
+  border-radius: 12px;
+}
+
+#formulario label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+#formulario input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 8px;
+  border: 2px solid var(--rosa-borde);
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+#mensaje-error {
+  min-height: 20px;                   /* reserva espacio para que el popup no "salte" */
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #c2185b;
+}
+
+.btn-principal {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--rosa-fuerte);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-principal:hover {
+  background-color: #d63384;
+}
+
+.btn-secundario {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  background: none;
+  border: none;
+  color: var(--texto);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Clase para esconder cosas. El !important hace que siempre gane,
+   incluso sobre reglas más específicas como #modal { display: flex }. */
+.oculto {
+  display: none !important;
+}
+
+/* DISEÑO SENSIBLE: en pantallas de 700px o menos (celulares),
+   los carriles se apilan uno debajo del otro */
+@media (max-width: 700px) {
+  #tablero {
+    flex-direction: column;           /* de fila a columna */
+    align-items: stretch;
+  }
+  #carriles {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .carril {
+    width: 100%;
+  }
+}
