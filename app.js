@@ -1,4 +1,4 @@
-// ==================== JAVASCRIPT: EL COMPORTAMIENTO ====================
+
 
 // ---------- 1. VARIABLES ----------
 
@@ -40,7 +40,7 @@ function leerCarriles() {
   try {
     // JSON.parse convierte el texto JSON de nuevo en una lista de verdad
     const lista = JSON.parse(texto);
-    if (Array.isArray(lista)) {
+    if (Array.isArray(lista)) {//serciora que sea de tipo lista osea un arreglo
       return lista;
     }
     return [];
@@ -68,23 +68,23 @@ function limpiarNombre(texto) {
 function crearDatosDeEjemplo(nombre) {
   const hijos = [];
   for (let i = 1; i <= 8; i++) {
-    hijos.push({
+    hijos.push({//agrega un obj nuevo a la lista en cada vuleta
       data: {
         title: "[DEMO] Publicación de ejemplo " + i + " de r/" + nombre,
         author: "usuario_demo" + i,
-        score: i * 37,
-        permalink: "/r/" + nombre + "/"
+        score: i * 37,//puntaje multiplicado
+        permalink: "/r/" + nombre + "/"//enlace flso
       }
     });
   }
-  return { data: { children: hijos } };
+  return { data: { children: hijos } }; //organizacion de reddit
 }
 
 // ---------- 5. PEDIR LOS POSTS A REDDIT ----------
 
 // "async" permite usar "await" dentro. Devuelve la lista de posts,
 // o lanza un Error con un mensaje claro si algo sale mal.
-async function pedirPosts(nombre) {
+async function pedirPosts(nombre) {// async acciones toman tiempo,no trabar
 
   // En modo demo no hablamos con Reddit
   if (MODO_DEMO) {
@@ -98,27 +98,27 @@ async function pedirPosts(nombre) {
     // encodeURIComponent protege caracteres raros; ?limit=15 pide máximo 15 posts
     respuesta = await fetch(
       "https://www.reddit.com/r/" + encodeURIComponent(nombre) + ".json?limit=15"
-    );
+    );// si falla red
   } catch (error) {
-    throw new Error(
+    throw new Error(//alerta controlada
       "No se pudo conectar con Reddit. Revisa tu internet; también puede ser que el navegador bloquee la petición."
     );
   }
 
   // 2) Revisar el código de estado de la respuesta
-  if (respuesta.status === 404) {
+  if (respuesta.status === 404) {//codigo NO ENCONTRADO ,alerta controlada
     throw new Error("El subreddit r/" + nombre + " no existe.");
   }
-  if (respuesta.status === 403) {
+  if (respuesta.status === 403) {//PROHIBIDO
     throw new Error(
       "Reddit rechazó la petición (403). Puede ser un subreddit privado o que Reddit ya no permita leer su .json sin iniciar sesión."
     );
   }
-  if (respuesta.status === 429) {
+  if (respuesta.status === 429) {//DEMASIADASPETICIONES
     throw new Error("Hiciste demasiadas peticiones a Reddit (429). Espera un minuto.");
   }
-  if (!respuesta.ok) {
-    // respuesta.ok es false para cualquier otro error (500, etc.)
+  if (!respuesta.ok) {// sio la repuesta no esta bien
+
     throw new Error("Reddit respondió con el error " + respuesta.status + ".");
   }
 
@@ -126,7 +126,7 @@ async function pedirPosts(nombre) {
   //    Si Reddit mandó una página HTML en vez de JSON, .json() falla.
   let datos;
   try {
-    datos = await respuesta.json();
+    datos = await respuesta.json();//espera mili segundos,tranforma en objeto
   } catch (error) {
     throw new Error("Reddit no devolvió datos en formato JSON.");
   }
@@ -145,12 +145,12 @@ async function pedirPosts(nombre) {
 function mostrarMensaje(zonaPosts, texto, esError) {
   zonaPosts.textContent = "";                 // vacía lo que había
   const p = document.createElement("p");      // crea un <p>
-  p.className = "mensaje";
-  if (esError) {
-    p.classList.add("error");                 // le suma la clase roja
+  p.className = "mensaje";//css mensaje
+  if (esError) {//true
+    p.classList.add("error");    // le suma la clase roja
   }
-  p.textContent = texto;
-  zonaPosts.appendChild(p);                   // lo mete en el carril
+  p.textContent = texto;//escribe frase
+  zonaPosts.appendChild(p);     // lo mete en el carril
 }
 
 // Dibuja un post por cada elemento de la lista
@@ -163,19 +163,19 @@ function dibujarPosts(zonaPosts, posts) {
 
     // Fila del post
     const fila = document.createElement("div");
-    fila.className = "post";
+    fila.className = "post";//conecta con mi archivo de estilos css
 
     // Votos (score = votos a favor menos en contra)
     const voto = document.createElement("div");
-    voto.className = "voto";
+    voto.className = "voto";//pone la clase CSS voto
     voto.textContent = "▲ " + post.score;
 
-    // Enlace con el título. Usamos textContent (no innerHTML) por seguridad.
+    // Enlace con el título.
     const enlace = document.createElement("a");
     enlace.href = "https://www.reddit.com" + post.permalink;
-    enlace.target = "_blank";
-    enlace.rel = "noopener noreferrer";
-    enlace.textContent = post.title;
+    enlace.target = "_blank";//nueva pestaña
+    enlace.rel = "noopener noreferrer";//evita q reddit tenga control en mi pagina
+    enlace.textContent = post.title;//da el titulo real de la publicacion
 
     // Autor
     const autor = document.createElement("div");
@@ -185,7 +185,7 @@ function dibujarPosts(zonaPosts, posts) {
     // Caja que agrupa título y autor
     const textos = document.createElement("div");
     textos.className = "textos";
-    textos.appendChild(enlace);
+    textos.appendChild(enlace);//agupa esto en el div
     textos.appendChild(autor);
 
     // Armamos la fila: votos + textos, y la metemos en el carril
@@ -195,7 +195,7 @@ function dibujarPosts(zonaPosts, posts) {
   }
 }
 
-// Carga (o recarga) los posts de un carril, mostrando estados de carga y error
+// recarga los posts de un carril, mostrando estados de carga y error
 async function cargarPosts(nombre, zonaPosts) {
   mostrarMensaje(zonaPosts, "Cargando publicaciones...", false); // estado de carga
   try {
@@ -291,18 +291,19 @@ function abrirModal() {
   modal.classList.remove("oculto");  // muestra el popup
   inputSubreddit.value = "";         // limpia el campo
   mensajeError.textContent = "";     // limpia mensajes viejos
-  inputSubreddit.focus();            // deja el cursor listo para escribir
+  inputSubreddit.focus();            // deja el cursor listo para escribir, titilando
 }
 
 function cerrarModal() {
-  modal.classList.add("oculto");
+  modal.classList.add("oculto");//vuelve a esconder
 }
 
-// Se ejecuta cuando el usuario envía el formulario
+// Se ejecuta cuando el usuario enter en formulario
 async function manejarFormulario(evento) {
   evento.preventDefault(); // evita que la página se recargue
 
-  const nombre = limpiarNombre(inputSubreddit.value);
+  const nombre = limpiarNombre(inputSubreddit.value);//inputSubredit.. lo q da el usuario,
+  //y pasa por limpiar nombre y quita espacios etcx
 
   // Validaciones simples
   if (nombre === "") {
@@ -333,17 +334,18 @@ async function manejarFormulario(evento) {
 }
 
 // ---------- 9. EVENTOS ----------
-btnMas.addEventListener("click", abrirModal);
+btnMas.addEventListener("click", abrirModal);//ejecuta abrir modal , ventane emergente
 btnCancelar.addEventListener("click", cerrarModal);
 formulario.addEventListener("submit", manejarFormulario);
 
 // ---------- 10. INICIO ----------
 // Se ejecuta al abrir la página: reconstruye los carriles guardados
 function iniciar() {
-  if (MODO_DEMO) {
+  if (MODO_DEMO) {//true or false 
     document.getElementById("aviso").classList.remove("oculto");
+    //interruptor de datos falsos
   }
-
+//restaura las columnas q agrege antes y no pierde info
   carriles = leerCarriles();
   for (let i = 0; i < carriles.length; i++) {
     const zonaPosts = crearCarril(carriles[i]);
@@ -351,4 +353,4 @@ function iniciar() {
   }
 }
 
-iniciar(); // arrancamos la app
+iniciar(); // arrancamos la app , como darle play

@@ -3,51 +3,38 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- Hace que la página se ajuste al ancho del celular -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi Cliente Reddit</title>
 
-  <!-- LINK: conecta este HTML con el archivo de estilos.
-       rel="stylesheet" = "esto es una hoja de estilos"
-       href="styles.css" = ruta del archivo (está en la misma carpeta) -->
+  
   <link rel="stylesheet" href="assets/pagina.css">
 </head>
 
 <body>
-  <!-- BODY: todo lo que se ve en la página -->
+ 
 
   <header>
     <h1>Mi cliente Reddit 🌸</h1>
-    <!-- Empieza oculto (clase "oculto"); JavaScript lo muestra solo en modo demo -->
     <p id="aviso" class="aviso oculto">Modo demostración: estos datos NO son de Reddit</p>
   </header>
 
-  <!-- TABLERO: contiene los carriles y el botón + -->
-  <div id="tablero">
+ <div id="tablero">
 
-    <!-- Aquí JavaScript va metiendo un carril por cada subreddit -->
     <div id="carriles"></div>
 
     <div id="zona-agregar">
-      <!-- Al hacer clic se abre el popup -->
-      <button id="btn-mas" type="button">+</button>
+     <button id="btn-mas" type="button">+</button>
     </div>
   </div>
 
-  <!-- POPUP para escribir el nombre del subreddit. Empieza oculto. -->
-  <div id="modal" class="oculto">
-    <!-- Con <form>, también se puede enviar presionando Enter -->
+<div id="modal" class="oculto">
     <form id="formulario">
-      <!-- El "for" apunta al id del input, así al tocar el texto se selecciona el campo -->
       <label for="nombre-subreddit">Escribe el nombre del subreddit</label>
       <input type="text" id="nombre-subreddit" placeholder="ejemplo: javascript">
 
-      <!-- Aquí se muestran los mensajes ("Verificando...", errores) -->
       <p id="mensaje-error"></p>
 
-      <!-- type="submit" envía el formulario -->
-      <button type="submit" class="btn-principal">Añadir subreddit</button>
-      <!-- type="button" NO envía el formulario, solo cierra el popup -->
+     <button type="submit" class="btn-principal">Añadir subreddit</button>
       <button type="button" id="btn-cancelar" class="btn-secundario">Cancelar</button>
     </form>
   </div>
