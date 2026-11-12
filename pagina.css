@@ -1,7 +1,4 @@
-/* ==================== CSS: LA APARIENCIA ==================== */
 
-/* Variables de color: las definimos una vez y las usamos con var(--nombre).
-   Si quieres cambiar el tono de rosa, solo lo cambias aquí. */
 :root {
   --rosa-fondo: #fff0f6;
   --rosa-claro: #ffe0ee;
@@ -10,23 +7,17 @@
   --rosa-fuerte: #e84a8a;
   --texto: #5a2a41;
 }
-
-/* El * significa "todos los elementos".
-   border-box hace que el padding y el borde cuenten dentro del ancho,
-   así las cajas no se salen de su tamaño. */
 * {
   box-sizing: border-box;
 }
-
-/* Estilo general de toda la página */
 body {
   margin: 0;                          /* quita el margen que trae el navegador */
-  font-family: Arial, sans-serif;     /* tipo de letra */
+  font-family: Arial, sans-serif;     
   background-color: var(--rosa-fondo);
   color: var(--texto);
 }
 
-/* Franja rosa de arriba */
+
 header {
   background-color: var(--rosa-medio);
   color: white;
@@ -38,18 +29,7 @@ header h1 {
   font-size: 24px;
 }
 
-/* Avisito que solo se ve en modo demo */
-.aviso {
-  display: inline-block;
-  margin: 8px 0 0 0;
-  padding: 4px 12px;
-  background-color: white;
-  color: var(--rosa-fuerte);
-  border-radius: 20px;
-  font-size: 14px;
-}
 
-/* El tablero tiene los carriles y el botón + en una fila */
 #tablero {
   display: flex;                      /* pone los hijos uno al lado del otro */
   align-items: flex-start;            /* todos alineados arriba */
@@ -58,26 +38,26 @@ header h1 {
   overflow-x: auto;                   /* si no caben, aparece scroll horizontal */
 }
 
-/* Aquí dentro se van agregando los carriles con JavaScript */
+/* se van agregando los carriles con JavaScript */
 #carriles {
   display: flex;
   align-items: flex-start;
   gap: 16px;
 }
 
-/* Un carril (una columna de un subreddit) */
+/* una columna de un usuario */
 .carril {
   width: 300px;
   background-color: white;
   border: 2px solid var(--rosa-borde);
-  border-radius: 12px;                /* esquinas redondeadas */
+  border-radius: 12px;               
 }
 
-/* Parte de arriba del carril: nombre del subreddit y botón ⋮ */
+
 .carril-encabezado {
-  position: relative;                 /* para que el menú se ubique respecto a este cuadro */
+  position: relative;                
   display: flex;
-  justify-content: space-between;     /* título a la izquierda, ⋮ a la derecha */
+  justify-content: space-between;    
   align-items: center;
   padding: 10px 14px;
   background-color: var(--rosa-claro);
@@ -96,7 +76,7 @@ header h1 {
   border: none;
   font-size: 22px;
   color: var(--rosa-fuerte);
-  cursor: pointer;                    /* manito al pasar el mouse */
+  cursor: pointer;                 
 }
 
 /* Menú desplegable con Refresh y Delete */
@@ -122,45 +102,35 @@ header h1 {
 }
 
 .menu button:hover {
-  background-color: var(--rosa-claro); /* cambia de color al pasar el mouse */
+  background-color: var(--rosa-claro); /*  pasar el mouse */
 }
 
-/* Zona donde están los posts: si son muchos, aparece scroll vertical */
-.zona-posts {
+/* Zona donde están los datos: si son muchos, aparece scroll vertical */
+.zona-datos {
   max-height: 70vh;                   /* 70% del alto de la pantalla como máximo */
   overflow-y: auto;
 }
 
-/* Una fila de post: votos a la izquierda, texto a la derecha */
-.post {
+/* Una fila de dato: etiqueta a la izquierda, valor a la derecha */
+.dato {
   display: flex;
   gap: 10px;
   padding: 10px 12px;
   border-bottom: 1px solid var(--rosa-borde);
 }
 
-.voto {
-  min-width: 60px;
+.etiqueta {
+  min-width: 80px;
   color: var(--rosa-fuerte);
   font-weight: bold;
-  white-space: nowrap;                /* no partir "▲ 431" en dos líneas */
-}
-
-.textos a {
-  color: var(--texto);
-  text-decoration: none;
   font-size: 14px;
+  white-space: nowrap;                /* no partir "Sitio web" en dos líneas */
 }
 
-.textos a:hover {
-  color: var(--rosa-fuerte);
-  text-decoration: underline;
-}
-
-.autor {
-  margin-top: 4px;
-  font-size: 12px;
-  color: #a8738d;
+.valor {
+  min-width: 0;                       /* deja que el texto largo se parta dentro de la caja */
+  font-size: 14px;
+  overflow-wrap: break-word;          /* si una palabra es muy larga, la parte */
 }
 
 /* Mensajes dentro del carril: "Cargando..." o errores */
@@ -183,7 +153,7 @@ header h1 {
 #btn-mas {
   width: 44px;
   height: 44px;
-  border-radius: 50%;                 /* 50% = círculo perfecto */
+  border-radius: 50%;                
   border: 2px solid var(--rosa-fuerte);
   background-color: white;
   color: var(--rosa-fuerte);

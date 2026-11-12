@@ -2,39 +2,37 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Cliente Reddit</title>
+  <meta name="author" content="july Daniela Riaño Soto">
+  <meta name="description" content="PROYECTO19">
+  <title>Mi Cliente de Usuarios</title>
 
-  
   <link rel="stylesheet" href="pagina.css">
 </head>
 
 <body>
- 
 
   <header>
-    <h1>Mi cliente Reddit 🌸</h1>
-    <p id="aviso" class="aviso oculto">Modo demostración: estos datos NO son de Reddit</p>
+    <h1>Mi cliente de usuarios 🌸</h1>
   </header>
 
- <div id="tablero">
+  <div id="tablero">
 
     <div id="carriles"></div>
 
     <div id="zona-agregar">
-     <button id="btn-mas" type="button">+</button>
+      <button id="btn-mas" type="button">+</button>
     </div>
   </div>
 
-<div id="modal" class="oculto">
+  <div id="modal" class="oculto">
     <form id="formulario">
-      <label for="nombre-subreddit">Escribe el nombre del subreddit</label>
-      <input type="text" id="nombre-subreddit" placeholder="ejemplo: javascript">
+      <label for="numero-usuario">Escribe el número de usuario (del 1 al 10)</label>
+      <input type="text" id="numero-usuario" placeholder="ejemplo: 1">
 
       <p id="mensaje-error"></p>
 
-     <button type="submit" class="btn-principal">Añadir subreddit</button>
+      <button type="submit" class="btn-principal">Añadir usuario</button>
       <button type="button" id="btn-cancelar" class="btn-secundario">Cancelar</button>
     </form>
   </div>
