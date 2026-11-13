@@ -229,11 +229,11 @@ async function manejarFormulario(evento) {
   mensajeError.textContent = "Buscando el usuario...";
 
   try {
-    // Pedimos el usuario: si no existe, esto lanza un Error
+//pedimos datos de ususario con su numero
     const usuario = await pedirUsuario(numero);
 
     // Si llegamos aquí, sí existe: lo guardamos y dibujamos el carril
-    carriles.push(numero);
+    carriles.push(numero);//guarda num en carriles
     guardarCarriles();
     const zonaDatos = crearCarril(numero);
     dibujarUsuario(zonaDatos, usuario);
